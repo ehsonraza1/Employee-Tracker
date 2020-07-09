@@ -2,9 +2,7 @@
 
 ## Description
 
-```
 This application seeks to view and manage the departments, roles, and employees within a company database.The application has been designed to be run in the terminal after the user answers a series of prompts.
-```
 
 ## Table of Contents
 
