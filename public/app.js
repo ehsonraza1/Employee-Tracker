@@ -33,59 +33,59 @@ figlet("Employee Database", function (err, data) {
 //functions collecting data from inquirer
 function init() {
   console.log("Welcome! Your CLI Application is running");
+
+  inquirer
+    .prompt({
+      name: "action",
+      type: "list",
+      message: "What would you like to review?",
+      choices: [
+        "View All Company Employees",
+        "View Employees By Role",
+        "View Employees By Department",
+        "Add Company Employee",
+        "Add Company Role",
+        "Add Company Department",
+        "Update Employees Role",
+        "Exit Application",
+      ],
+    })
+    .then(function (answer) {
+      switch (answer.action) {
+        case "View All Company Employees":
+          viewAllEmployees();
+          break;
+
+        case "View Employees By Role":
+          viewEmployeeRole();
+          break;
+
+        case "View Employees By Department":
+          viewEmployeeDept();
+          break;
+
+        case "Add Company Employee":
+          addEmployee();
+          break;
+
+        case "Add Company Role":
+          addRole();
+          break;
+
+        case "Add Company Department":
+          addDept();
+          break;
+
+        case "Update Employee Role":
+          updateEmployeeRole();
+          break;
+
+        case "Exit":
+          connection.end();
+          break;
+      }
+    });
 }
-inquirer
-  .prompt({
-    name: "action",
-    type: "list",
-    message: "What would you like to review?",
-    choices: [
-      "View All Company Employees",
-      "View Employees By Role",
-      "View Employees By Department",
-      "Add Company Employee",
-      "Add Company Role",
-      "Add Company Department",
-      "Update Employees Role",
-      "Exit Application",
-    ],
-  })
-  .then(function (answer) {
-    switch (answer.action) {
-      case "View All Company Employees":
-        viewAllEmployees();
-        break;
-
-      case "View Employees By Role":
-        viewEmployeeRole();
-        break;
-
-      case "View Employees By Department":
-        viewEmployeeDept();
-        break;
-
-      case "Add Company Employee":
-        addEmployee();
-        break;
-
-      case "Add Company Role":
-        addRole();
-        break;
-
-      case "Add Company Department":
-        addDept();
-        break;
-
-      case "Update Employee Role":
-        updateEmployeeRole();
-        break;
-
-      case "Exit":
-        connection.end();
-        break;
-    }
-  });
-
 function viewAllEmployees() {
   connection.query("SELECT * FROM employee", function (err, res) {
     if (err) throw err;
@@ -94,14 +94,14 @@ function viewAllEmployees() {
   });
 }
 function viewEmployeeRole() {
-  connection.query("SELECT * FROM employee", function (err, res) {
+  connection.query("SELECT * FROM role", function (err, res) {
     if (err) throw err;
     console.table(res);
     init();
   });
 }
 function viewEmployeeDept() {
-  connection.query("SELECT * FROM employee", function (err, res) {
+  connection.query("SELECT * FROM department", function (err, res) {
     if (err) throw err;
     console.table(res);
     init();
