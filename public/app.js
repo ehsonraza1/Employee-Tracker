@@ -1,6 +1,7 @@
 var mysql = require("mysql2");
 var inquirer = require("inquirer");
 var console = require("console.table");
+var figlet = require("figlet");
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -17,7 +18,7 @@ var connection = mysql.createConnection({
   database: "employee_DB",
 });
 
-figlet("Employee Manager", function (err, data) {
+figlet("Employee Database", function (err, data) {
   if (err) {
     console.log("Something went wrong...");
     console.dir(err);
@@ -30,7 +31,9 @@ figlet("Employee Manager", function (err, data) {
 // 3 Functions create Department, Employee, and Role - CRUD Manipulation
 //Differentiate b/w functions that are manipulating the DB and
 //functions collecting data from inquirer
-
+function init() {
+  console.log("Welcome! Your CLI Application is running");
+}
 inquirer
   .prompt({
     name: "action",
@@ -82,8 +85,58 @@ inquirer
         break;
     }
   });
+
+function viewAllEmployees() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+function viewEmployeeRole() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+function viewEmployeeDept() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+function addEmployee() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+function addRole() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+function addDept() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+function updateEmployeeRole() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
 /*
-// connect to the mysql server and sql database
+connect to the mysql server and sql database
 connection.connect(function (err) {
   if (err) throw err;
   // run the start function after the connection is made to prompt the user
@@ -100,10 +153,6 @@ function start() {
     console.log(results);
   });
 }
-//TODO
-// 3 Functions create Department, Employee, and Role - CRUD Manipulation
-//Differentiate b/w functions that are manipulating the DB and
-//functions collecting data from inquirer
 function createDepartment(name) {
   connection.query(`INSERT into department(name) VALUES("${name}")`, function (
     error,
